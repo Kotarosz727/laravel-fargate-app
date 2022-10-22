@@ -46,15 +46,11 @@ jobs:
       - run: docker-compose exec -T app composer install -n --prefer-dist --no-dev
         if: ${{ !steps.cache-composer.outputs.cache-hit }}
 
-      - name: whoami
-        run: whoami
-
       - uses: actions/setup-node@v3
         with:
           node-version: 14
       - run: docker-compose exec -T web npm ci
-      - run: docker-compose exec -T web ls -l "/root/.npm" 
-      - run: docker-compose exec -T web chown -R 1001:121 "/root/.npm"
+      - run: chown -R 1001:121 "/root/.npm"
       - run: docker-compose exec -T web npm run prod
 
       - uses: aws-actions/amazon-ecr-login@v1
