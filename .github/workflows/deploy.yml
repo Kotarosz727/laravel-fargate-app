@@ -48,13 +48,12 @@ jobs:
 
       - name: whoami
         run: whoami
-      - name: ls  
-        run: docker-compose exec -T web ls -l /root/.npm   
 
       - uses: actions/setup-node@v3
         with:
           node-version: 14
       - run: docker-compose exec -T web npm ci
+      - run: docker-compose exec -T web ls -l "/root/.npm" 
       - run: docker-compose exec -T web chown -R 1001:121 "/root/.npm"
       - run: docker-compose exec -T web npm run prod
 
