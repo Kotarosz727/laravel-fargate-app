@@ -48,7 +48,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 14
       - run: docker-compose exec -T web npm ci
       - run: docker-compose exec -T web npm run prod
 
