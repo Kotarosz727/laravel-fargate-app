@@ -50,7 +50,7 @@ jobs:
         with:
           node-version: 14
       - run: docker-compose exec -T web npm ci
-      - run: chown -R 1001:121 "/root/.npm"
+      - run: ls -l "/root/.npm"
       - run: docker-compose exec -T web npm run prod
 
       - uses: aws-actions/amazon-ecr-login@v1
