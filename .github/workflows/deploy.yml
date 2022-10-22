@@ -46,6 +46,11 @@ jobs:
       - run: docker-compose exec -T app composer install -n --prefer-dist --no-dev
         if: ${{ !steps.cache-composer.outputs.cache-hit }}
 
+      - name: whoami
+        run: whoami
+      - name: ls  
+        run: docker-compose exec -T web ls -l /root/.npm   
+
       - uses: actions/setup-node@v3
         with:
           node-version: 14
