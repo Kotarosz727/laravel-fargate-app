@@ -33,6 +33,15 @@ jobs:
         run: echo "ENV_NAME=prod" >> $GITHUB_ENV
 
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run:
+          cd ./backend 
+          npm ci
+      - run: 
+          cd ./backend
+          npm run prod
 
       - run: docker-compose up -d --build app web
 
@@ -46,8 +55,8 @@ jobs:
       - run: docker-compose exec -T app composer install -n --prefer-dist --no-dev
         if: ${{ !steps.cache-composer.outputs.cache-hit }}
 
-      - run: docker-compose exec -T web npm ci
-      - run: docker-compose exec -T web npm run prod
+      # - run: docker-compose exec -T web npm ci
+      # - run: docker-compose exec -T web npm run prod
 
       - uses: aws-actions/amazon-ecr-login@v1
         id: amazon-ecr-login
