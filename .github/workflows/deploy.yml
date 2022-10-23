@@ -46,11 +46,8 @@ jobs:
       - run: docker-compose exec -T app composer install -n --prefer-dist --no-dev
         if: ${{ !steps.cache-composer.outputs.cache-hit }}
 
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 14
-      - run: docker-compose exec -T web npm ci
-      - run: docker-compose exec -T web ls -l "/root/.npm"
+      - run: docker-compose exec -T web npm install -g npm
+      - run: docker-compose exec -T web node -v
       - run: docker-compose exec -T web npm run prod
 
       - uses: aws-actions/amazon-ecr-login@v1
