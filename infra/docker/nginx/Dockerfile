@@ -18,8 +18,8 @@ COPY --from=node /opt /opt
 COPY ./infra/docker/nginx/default.conf /etc/nginx/templates/default.conf.template
 COPY ./infra/docker/nginx/nginx.conf /etc/nginx/nginx.conf
 
-COPY --chown=node:node ./backend/public /work/backend/public
-
-USER node
+COPY ./backend/public /work/backend/public
+RUN npm install
 
 WORKDIR /work/backend
+CMD ["npm", "run", "start"]
