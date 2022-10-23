@@ -47,7 +47,8 @@ jobs:
         if: ${{ !steps.cache-composer.outputs.cache-hit }}
 
       - run: docker-compose exec -T web npm ci
-      - run: docker-compose exec -T web ls -l
+      - run: docker-compose exec -T web ls -l "/root/.npm"
+      - run: docker-compose exec -T chown -R 1001:121 "/root/.npm"
       - run: docker-compose exec -T web npm run prod
 
       - uses: aws-actions/amazon-ecr-login@v1
