@@ -19,7 +19,8 @@ COPY ./infra/docker/nginx/default.conf /etc/nginx/templates/default.conf.templat
 COPY ./infra/docker/nginx/nginx.conf /etc/nginx/nginx.conf
 
 COPY ./backend/public /work/backend/public
-RUN npm install
 
 WORKDIR /work/backend
-CMD ["npm", "run", "start"]
+RUN npm install
+RUN chown -R node.node node_module
+CMD ["npm", "run", "prod"]
