@@ -18,6 +18,8 @@ COPY --from=node /opt /opt
 COPY ./infra/docker/nginx/default.conf /etc/nginx/templates/default.conf.template
 COPY ./infra/docker/nginx/nginx.conf /etc/nginx/nginx.conf
 
-COPY ./backend/public /work/backend/public
+COPY --chown=node:node ./backend/public /work/backend/public
+
+USER node
 
 WORKDIR /work/backend
