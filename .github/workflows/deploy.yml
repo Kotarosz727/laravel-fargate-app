@@ -46,7 +46,9 @@ jobs:
       - run: docker-compose exec -T app composer install -n --prefer-dist --no-dev
         if: ${{ !steps.cache-composer.outputs.cache-hit }}
 
-      - run: docker-compose exec -T web node -v
+      - run: docker-compose exec -T web npm ci
+      - run: docker-compose exec -T web chmod 777 node_module
+      - run: docker-compose exec -T web npm run prod
 
       - uses: aws-actions/amazon-ecr-login@v1
         id: amazon-ecr-login

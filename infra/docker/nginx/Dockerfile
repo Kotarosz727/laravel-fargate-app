@@ -21,6 +21,3 @@ COPY ./infra/docker/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY ./backend/public /work/backend/public
 
 WORKDIR /work/backend
-RUN npm install
-RUN chown -R node.node node_module
-CMD ["npm", "run", "prod"]
