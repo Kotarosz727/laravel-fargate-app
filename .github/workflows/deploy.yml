@@ -26,7 +26,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
           role-to-assume: ${{ secrets.PROD_AWS_ASSUME_ROLE_ARN }}
-          role-duration-seconds: 1800
+          # assume roleの有効時間（30分）
+          role-duration-seconds: 1800 
 
       - name: Set env vars for prod
         # if: github.ref == 'refs/heads/main'
@@ -55,7 +56,7 @@ jobs:
       - run: docker-compose exec -T app composer install -n --prefer-dist --no-dev
         if: ${{ !steps.cache-composer.outputs.cache-hit }}
 
-      # - run: docker-compose exec -T web npm ci
+      - run: docker-compose exec -T web npm -v
       # - run: docker-compose exec -T web npm run prod
 
       - uses: aws-actions/amazon-ecr-login@v1
